@@ -1,23 +1,32 @@
-import logo from './logo.svg';
+import { useState } from "react";
 import './App.css';
+import CandidateCard from "./candidateCard";
 
 function App() {
+
+  const [candidatesList, setCandidatesList] = useState([1, 2, 3, 4])
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <button className="button" >
+          Connect Wallet
+        </button>
       </header>
+      <button className="button" >
+        Register as Candidate
+      </button>
+      <button className="button" >
+        Register as Voter
+      </button>
+      <div className="CandidatesListContainer" >
+        {
+          candidatesList.map(element => {
+            return <CandidateCard />
+          })
+        }
+      </div>
+
     </div>
   );
 }
