@@ -1,0 +1,31 @@
+.App {}
+
+.App-header {}
+
+
+.Card {
+  width: 20%;
+  height: 200px;
+  background-color: azure;
+  border: 1px solid black;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.CandidatesListContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.button {
+  background: none;
+  border: none;
+  background-color: aqua;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}

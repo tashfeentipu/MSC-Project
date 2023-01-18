@@ -1,7 +1,9 @@
 import { useMetaMask } from "metamask-react";
 import Web3 from "web3";
 import ElectoralContract from "./abis/ElectoralContract.json";
+import { useState } from "react";
 import './App.css';
+import CandidateCard from "./candidateCard";
 
 function App() {
   let web3;
@@ -26,14 +28,29 @@ function App() {
   }
   loadData()
 
-
+  const [candidatesList, setCandidatesList] = useState([1, 2, 3, 4])
 
   return (
-    <div>
-      <button className='button' onClick={connectMetamask}>Connect</button>
-      <div>
-        Address: {account}
+    <div className="App">
+      <header className="App-header">
+        <button className="button" >
+          Connect Wallet
+        </button>
+      </header>
+      <button className="button" >
+        Register as Candidate
+      </button>
+      <button className="button" >
+        Register as Voter
+      </button>
+      <div className="CandidatesListContainer" >
+        {
+          candidatesList.map(element => {
+            return <CandidateCard />
+          })
+        }
       </div>
+
     </div>
   );
 }
