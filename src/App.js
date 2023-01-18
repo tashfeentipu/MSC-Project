@@ -1,23 +1,39 @@
-import logo from './logo.svg';
+import { useMetaMask } from "metamask-react";
+import Web3 from "web3";
+import ElectoralContract from "./abis/ElectoralContract.json";
 import './App.css';
 
 function App() {
+  let web3;
+  let electoralContract;
+
+  const { connect, account, ethereum } = useMetaMask();
+  const connectMetamask = async () => {
+    await connect()
+  }
+  if (window.ethereum) {
+    web3 = new Web3(ethereum)
+  }
+  
+  const loadData = async () => {
+    const networkId = await web3.eth.net.getId()
+    const networkData = ElectoralContract.networks[networkId]
+    if (networkData) {
+      const address = networkData.address;
+      const electoralContract = new web3.eth.Contract(ElectoralContract.abi, address)
+      console.log("Contract", await electoralContract.methods.name().call());
+    }
+  }
+  loadData()
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <button className='button' onClick={connectMetamask}>Connect</button>
+      <div>
+        Address: {account}
+      </div>
     </div>
   );
 }

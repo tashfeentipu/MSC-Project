@@ -6,7 +6,10 @@ contract ElectoralContract {
     string public symbol;
     mapping(address => uint256) public votes;
 
-    constructor() {}
+    constructor() {
+        name = "Electoral Contract";
+        symbol = "Electoral Contract Symbol";
+    }
 
     
 }
