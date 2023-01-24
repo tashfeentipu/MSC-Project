@@ -23,8 +23,12 @@ contract ElectoralContract {
             "No of max candidates exceeded."
         );
         require(
+            candidates[msg.sender].exists == false,
+            "User has already registered as Candidate."
+        );
+        require(
             voters[msg.sender].exists == false,
-            "User already registered as Voter."
+            "User has already registered as Voter."
         );
         candidate memory newCandidate = candidate(true, 0);
         candidates[msg.sender] = newCandidate;
@@ -34,11 +38,11 @@ contract ElectoralContract {
     function registerAsVoter() public payable {
         require(
             voters[msg.sender].exists == false,
-            "User already registered as Voter."
+            "User has already registered as Voter."
         );
         require(
             candidates[msg.sender].exists == false,
-            "User already registered as Candidate."
+            "User has already registered as Candidate."
         );
         voter memory newVoter = voter(true, false);
         voters[msg.sender] = newVoter;
