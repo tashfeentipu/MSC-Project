@@ -15,28 +15,30 @@ contract ElectoralContract {
 
     mapping(address => candidate) candidates;
     mapping(address => voter) voters;
+    uint public no_of_candidates = 0;
 
     function registerAsCandidate() public payable {
         require(
-            candidates[msg.sender].exists == false,
-            "User already registered as Candidate"
+            no_of_candidates <= 4,
+            "No of max candidates exceeded."
         );
         require(
             voters[msg.sender].exists == false,
-            "User already registered as Voter"
+            "User already registered as Voter."
         );
         candidate memory newCandidate = candidate(true, 0);
         candidates[msg.sender] = newCandidate;
+        no_of_candidates++;
     }
 
     function registerAsVoter() public payable {
         require(
             voters[msg.sender].exists == false,
-            "User already registered as Voter"
+            "User already registered as Voter."
         );
         require(
             candidates[msg.sender].exists == false,
-            "User already registered as Candidate"
+            "User already registered as Candidate."
         );
         voter memory newVoter = voter(true, false);
         voters[msg.sender] = newVoter;
