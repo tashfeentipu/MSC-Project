@@ -10,31 +10,36 @@ function App() {
   let electoralContract;
 
   const { connect, account, ethereum } = useMetaMask();
-  const connectMetamask = async () => {
-    await connect()
-  }
+  const [candidatesList, setCandidatesList] = useState([1, 2, 3, 4])
+  const [accNumber, setAccNumber] = useState("Connect Wallet")
+
   if (window.ethereum) {
     web3 = new Web3(ethereum)
   }
-  
+  const connectMetamask = async () => {
+    await connect()
+    if (account) {
+      setAccNumber(account)
+    }
+  }
+
+
   const loadData = async () => {
     const networkId = await web3.eth.net.getId()
     const networkData = ElectoralContract.networks[networkId]
     if (networkData) {
       const address = networkData.address;
-      const electoralContract = new web3.eth.Contract(ElectoralContract.abi, address)
-      console.log("Contract", await electoralContract.methods.name().call());
+      electoralContract = new web3.eth.Contract(ElectoralContract.abi, address)
     }
   }
   loadData()
 
-  const [candidatesList, setCandidatesList] = useState([1, 2, 3, 4])
 
   return (
     <div className="App">
       <header className="App-header">
-        <button className="button" >
-          Connect Wallet
+        <button className="button" onClick={connectMetamask}>
+          {accNumber}
         </button>
       </header>
       <button className="button" >
