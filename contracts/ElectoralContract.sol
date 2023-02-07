@@ -17,6 +17,9 @@ contract ElectoralContract {
     mapping(address => voter) voters;
     uint public no_of_candidates = 0;
 
+    event candidateRegistrationSuccessful();
+    event voterRegistrationSuccessful();
+
     function registerAsCandidate() public payable {
         require(
             no_of_candidates <= 4,
@@ -33,6 +36,7 @@ contract ElectoralContract {
         candidate memory newCandidate = candidate(true, 0);
         candidates[msg.sender] = newCandidate;
         no_of_candidates++;
+        emit candidateRegistrationSuccessful();
     }
 
     function registerAsVoter() public payable {
@@ -46,6 +50,7 @@ contract ElectoralContract {
         );
         voter memory newVoter = voter(true, false);
         voters[msg.sender] = newVoter;
+        emit voterRegistrationSuccessful();
     }
 
     function getCandidatesVotes(address candidateAddress)
