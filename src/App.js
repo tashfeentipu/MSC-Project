@@ -38,16 +38,18 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <button className="button" onClick={connectMetamask}>
+        <button className="connectWalletButton" onClick={connectMetamask}>
           {accNumber}
         </button>
       </header>
-      <button className="button" >
-        Register as Candidate
-      </button>
-      <button className="button" >
-        Register as Voter
-      </button>
+      <div className="buttonsContainer" >
+        <button className="button" >
+          Register as Candidate
+        </button>
+        <button className="button" >
+          Register as Voter
+        </button>
+      </div>
       <div className="CandidatesListContainer" >
         {
           candidatesList.map(element => {

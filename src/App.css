@@ -1,12 +1,19 @@
 .App {}
 
-.App-header {}
-
+.App-header {
+  height: 50px;
+  width: 100%;
+  background-color: grey;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid black;
+  justify-content: flex-end;
+}
 
 .Card {
   width: 20%;
   height: 200px;
-  background-color: azure;
+  background-color: lightgray;
   border: 1px solid black;
   border-radius: 5px;
   display: flex;
@@ -23,9 +30,34 @@
 
 .button {
   background: none;
-  border: none;
-  background-color: aqua;
+  background-color: grey;
+  color: white;
   padding: 5px;
-  border-radius: 5px;
+  width: 20%;
+  border-radius: 8px;
   cursor: pointer;
+  border: 1px solid black;
+
+}
+
+.buttonsContainer {
+  margin: 20px;
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+
+.connectWalletButton {
+  background: none;
+  background-color: white;
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 30px;
+  border-radius: 5px;
+  margin-right: 10px;
+  cursor: pointer;
+  border: 1px solid black;
+  border-radius: 8px;
 }

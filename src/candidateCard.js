@@ -2,7 +2,12 @@ function CandidateCard(props) {
 
     return (
         <div className="Card">
-            Candidate's Name
+            <div>
+                Address
+            </div>
+            <div>
+                Votes
+            </div>
             <button className="button" >
                 Vote
             </button>
