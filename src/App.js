@@ -30,9 +30,28 @@ function App() {
     if (networkData) {
       const address = networkData.address;
       electoralContract = new web3.eth.Contract(ElectoralContract.abi, address)
+      // console.log(await electoralContract.methods.getCandidates().send({from: account}));
     }
   }
   loadData()
+
+  const registerVoter = async () => {
+    try {
+      // await electoralContract.methods.registerAsVoter().send({ from: account });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const registerCandidate = async () => {
+    try {
+      // await electoralContract.methods.registerAsCandidate().send({ from: account });
+      console.log(await electoralContract.methods.registerAsCandidate().call({ from: account }))
+      // console.log(await electoralContract.methods.getCandidates().call({from: account}))
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
 
   return (
@@ -43,17 +62,17 @@ function App() {
         </button>
       </header>
       <div className="buttonsContainer" >
-        <button className="button" >
+        <button className="button" onClick={registerCandidate} >
           Register as Candidate
         </button>
-        <button className="button" >
+        <button className="button" onClick={registerVoter} >
           Register as Voter
         </button>
       </div>
       <div className="CandidatesListContainer" >
         {
-          candidatesList.map(element => {
-            return <CandidateCard />
+          candidatesList.map((element, index) => {
+            return <CandidateCard data={element} key={index} />
           })
         }
       </div>

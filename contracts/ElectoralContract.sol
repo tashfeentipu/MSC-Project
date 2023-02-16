@@ -23,7 +23,7 @@ contract ElectoralContract {
     event candidateRegistrationSuccessful();
     event voterRegistrationSuccessful();
 
-    function registerAsCandidate() public payable {
+    function registerAsCandidate() public {
         require(no_of_candidates <= max_no_of_candidates, "No of max candidates exceeded.");
         require(
             candidates[msg.sender].exists == false,
@@ -40,7 +40,7 @@ contract ElectoralContract {
         emit candidateRegistrationSuccessful();
     }
 
-    function registerAsVoter() public payable {
+    function registerAsVoter() public {
         require(
             voters[msg.sender].exists == false,
             "User has already registered as Voter."
