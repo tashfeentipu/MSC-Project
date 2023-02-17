@@ -17,7 +17,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -30,7 +31,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.8.18+commit.87f61d96\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/TestContract.sol\":\"TestContract\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/TestContract.sol\":{\"keccak256\":\"0x100268ffe59f6c3fae0095efdb29e61c3f34079f301cb43b25a4f9fb15321d43\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://302fb5dda8f2f71a878dac01e7eb4744fb04370b2062865b73ec26b9add80444\",\"dweb:/ipfs/QmSc77B2gEN9uoMcPDxveEnfSFAKiJVP1usGuXU1SRB6y5\"]}},\"version\":1}",
@@ -4152,15 +4154,15 @@
     "absolutePath": "project:/contracts/TestContract.sol",
     "exportedSymbols": {
       "TestContract": [
-        278
+        302
       ]
     },
-    "id": 279,
+    "id": 303,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 261,
+        "id": 285,
         "literals": [
           "solidity",
           ">=",
@@ -4180,9 +4182,9 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 278,
+        "id": 302,
         "linearizedBaseContracts": [
-          278
+          302
         ],
         "name": "TestContract",
         "nameLocation": "78:12:2",
@@ -4191,12 +4193,12 @@
           {
             "constant": false,
             "functionSelector": "06fdde03",
-            "id": 263,
+            "id": 287,
             "mutability": "mutable",
             "name": "name",
             "nameLocation": "112:4:2",
             "nodeType": "VariableDeclaration",
-            "scope": 278,
+            "scope": 302,
             "src": "98:18:2",
             "stateVariable": true,
             "storageLocation": "default",
@@ -4205,7 +4207,7 @@
               "typeString": "string"
             },
             "typeName": {
-              "id": 262,
+              "id": 286,
               "name": "string",
               "nodeType": "ElementaryTypeName",
               "src": "98:6:2",
@@ -4219,12 +4221,12 @@
           {
             "constant": false,
             "functionSelector": "95d89b41",
-            "id": 265,
+            "id": 289,
             "mutability": "mutable",
             "name": "symbol",
             "nameLocation": "137:6:2",
             "nodeType": "VariableDeclaration",
-            "scope": 278,
+            "scope": 302,
             "src": "123:20:2",
             "stateVariable": true,
             "storageLocation": "default",
@@ -4233,7 +4235,7 @@
               "typeString": "string"
             },
             "typeName": {
-              "id": 264,
+              "id": 288,
               "name": "string",
               "nodeType": "ElementaryTypeName",
               "src": "123:6:2",
@@ -4246,23 +4248,23 @@
           },
           {
             "body": {
-              "id": 276,
+              "id": 300,
               "nodeType": "Block",
               "src": "165:58:2",
               "statements": [
                 {
                   "expression": {
-                    "id": 270,
+                    "id": 294,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
-                      "id": 268,
+                      "id": 292,
                       "name": "name",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 263,
+                      "referencedDeclaration": 287,
                       "src": "176:4:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_string_storage",
@@ -4273,7 +4275,7 @@
                     "operator": "=",
                     "rightHandSide": {
                       "hexValue": "54657374",
-                      "id": 269,
+                      "id": 293,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -4293,23 +4295,23 @@
                       "typeString": "string storage ref"
                     }
                   },
-                  "id": 271,
+                  "id": 295,
                   "nodeType": "ExpressionStatement",
                   "src": "176:13:2"
                 },
                 {
                   "expression": {
-                    "id": 274,
+                    "id": 298,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
-                      "id": 272,
+                      "id": 296,
                       "name": "symbol",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 265,
+                      "referencedDeclaration": 289,
                       "src": "200:6:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_string_storage",
@@ -4320,7 +4322,7 @@
                     "operator": "=",
                     "rightHandSide": {
                       "hexValue": "54332474",
-                      "id": 273,
+                      "id": 297,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -4340,13 +4342,13 @@
                       "typeString": "string storage ref"
                     }
                   },
-                  "id": 275,
+                  "id": 299,
                   "nodeType": "ExpressionStatement",
                   "src": "200:15:2"
                 }
               ]
             },
-            "id": 277,
+            "id": 301,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
@@ -4354,25 +4356,25 @@
             "nameLocation": "-1:-1:-1",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 266,
+              "id": 290,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "163:2:2"
             },
             "returnParameters": {
-              "id": 267,
+              "id": 291,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "165:0:2"
             },
-            "scope": 278,
+            "scope": 302,
             "src": "152:71:2",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 279,
+        "scope": 303,
         "src": "69:157:2",
         "usedErrors": []
       }
@@ -4387,12 +4389,13 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x955616232AE775dD0e235b4EBB178997ad5B46c7",
-      "transactionHash": "0x9f8a7b727a50d5812eaf72397f764c5111b49d0afb4c7e4a460475890be1c5bd"
+      "address": "0xAE87063Ef9c855116B5F2755FaaEC748c97eFA5B",
+      "transactionHash": "0x4a257fb48238c1f54896e0f2fdc0316abe66e3c7a62f68954e927d3afefc6d86"
     }
   },
   "schemaVersion": "3.4.10",
-  "updatedAt": "2023-02-16T20:24:31.490Z",
+  "updatedAt": "2023-02-17T00:12:24.247Z",
+  "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
     "methods": {},

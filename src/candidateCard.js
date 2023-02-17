@@ -1,9 +1,8 @@
-function CandidateCard(props) {
-
+function CandidateCard({ data }) {
     return (
         <div className="Card">
-            <div>
-                Address
+            <div className="CardAddress" >
+                {data}
             </div>
             <div>
                 Votes

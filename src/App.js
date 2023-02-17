@@ -1,7 +1,7 @@
 import { useMetaMask } from "metamask-react";
 import Web3 from "web3";
 import ElectoralContract from "./abis/ElectoralContract.json";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import './App.css';
 import CandidateCard from "./candidateCard";
 
@@ -10,7 +10,7 @@ function App() {
   let electoralContract;
 
   const { connect, account, ethereum } = useMetaMask();
-  const [candidatesList, setCandidatesList] = useState([1, 2, 3, 4])
+  const [candidatesList, setCandidatesList] = useState([])
   const [accNumber, setAccNumber] = useState("Connect Wallet")
 
   if (window.ethereum) {
@@ -22,7 +22,10 @@ function App() {
       setAccNumber(account)
     }
   }
-
+  
+  useEffect(() => {
+    loadData()
+  }, [])
 
   const loadData = async () => {
     const networkId = await web3.eth.net.getId()
@@ -30,27 +33,36 @@ function App() {
     if (networkData) {
       const address = networkData.address;
       electoralContract = new web3.eth.Contract(ElectoralContract.abi, address)
-      // console.log(await electoralContract.methods.getCandidates().send({from: account}));
     }
+    setCandidatesList(await electoralContract.methods.getCandidates().call());
   }
-  loadData()
 
   const registerVoter = async () => {
     try {
-      // await electoralContract.methods.registerAsVoter().send({ from: account });
+      await electoralContract.methods.registerAsVoter().send({ from: account });
     } catch (error) {
-      console.log(error);
+      displayError(error)
     }
   }
 
   const registerCandidate = async () => {
     try {
-      // await electoralContract.methods.registerAsCandidate().send({ from: account });
-      console.log(await electoralContract.methods.registerAsCandidate().call({ from: account }))
-      // console.log(await electoralContract.methods.getCandidates().call({from: account}))
+      console.log(account);
+      await electoralContract.methods.registerAsCandidate().send({ from: account });
     } catch (error) {
-      console.log(error);
+      displayError(error)
     }
+  }
+
+  const displayError = (error) => {
+    var errorMessageInJson = JSON.parse(
+      error.message.slice(58, error.message.length - 2)
+    );
+
+    var errorMessageToShow = errorMessageInJson.data.data[Object.keys(errorMessageInJson.data.data)[0]].reason;
+
+    alert(errorMessageToShow);
+    return; 
   }
 
 

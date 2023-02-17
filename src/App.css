@@ -22,6 +22,12 @@
   justify-content: space-around;
 }
 
+.CardAddress{
+  width: 80%;
+  word-wrap: break-word;
+  text-align: center;
+}
+
 .CandidatesListContainer {
   display: flex;
   justify-content: space-around;

@@ -18,6 +18,7 @@ contract ElectoralContract {
     uint256 public no_of_candidates = 0;
     uint256 public max_no_of_candidates = 4;
 
+    string public nameDeContract = "electoral COntract";
     address[] private candidatesAddress = new address[](max_no_of_candidates);
 
     event candidateRegistrationSuccessful();
