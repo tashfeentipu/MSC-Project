@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { displayError } from "./Errors";
 
-function CandidateCard({ data, contract, account }) {
+function CandidateCard({ data, contract, account, disabled }) {
     const render = data.slice(0, 4) === "0x00";
     const [votes, setVotes] = useState(0)
 
     const voteCandidate = async () => {
         try {
-            console.log(await contract.methods.voteCandidate(data).send({ from: account }));
-            // await contract.methods.voteCandidate().send({ from: account });
+            await contract.methods.voteCandidate(data).send({ from: account });
+            getVotes()
         } catch (error) {
             displayError(error)
         }
@@ -33,7 +33,7 @@ function CandidateCard({ data, contract, account }) {
             <div>
                 Votes {votes}
             </div>
-            <button className="button" onClick={voteCandidate} >
+            <button className="button" onClick={voteCandidate} disabled={disabled} >
                 Vote
             </button>
         </div> || null

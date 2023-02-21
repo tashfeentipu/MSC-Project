@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import './App.css';
 import CandidateCard from "./candidateCard";
 import { displayError } from "./Errors";
+import moment from "moment";
 
 function App() {
   let web3;
@@ -14,6 +15,8 @@ function App() {
   const [candidatesList, setCandidatesList] = useState([])
   const [contract, setContract] = useState(null)
   const [accNumber, setAccNumber] = useState("Connect Wallet")
+  const [timer, setTimer] = useState("")
+  const [disabled, setDisabled] = useState(false)
 
   if (window.ethereum) {
     web3 = new Web3(ethereum)
@@ -23,6 +26,7 @@ function App() {
     if (account) {
       setAccNumber(account)
     }
+    timerFunction()
   }
 
   useEffect(() => {
@@ -45,6 +49,7 @@ function App() {
   const registerVoter = async () => {
     try {
       await contract.methods.registerAsVoter().send({ from: account });
+
     } catch (error) {
       displayError(error)
     }
@@ -53,10 +58,34 @@ function App() {
   const registerCandidate = async () => {
     try {
       await contract.methods.registerAsCandidate().send({ from: account });
-      setCandidatesList(await electoralContract.methods.getCandidates().call());
+      setCandidatesList(await contract.methods.getCandidates().call());
     } catch (error) {
       displayError(error)
     }
+  }
+
+  const timerFunction = () => {
+
+    var eventTime, currentTime, duration, interval, intervalId;
+
+    interval = 1000; // 1 second
+
+    eventTime = moment(new Date()).add(10, "seconds");
+    currentTime = moment(new Date());
+    duration = moment.duration(eventTime.diff(currentTime));
+
+    intervalId = setInterval(function () {
+      duration = moment.duration(duration - interval, 'milliseconds');
+
+      if (duration.asSeconds() <= 0) {
+        clearInterval(intervalId);
+        setTimer("Campaign Ended")
+        setDisabled(true)
+      } else {
+        setTimer(duration.minutes() + " minutes " + duration.seconds() + " seconds");
+      }
+    }, interval);
+
   }
 
   return (
@@ -77,11 +106,21 @@ function App() {
       <div className="CandidatesListContainer" >
         {
           candidatesList.map((element, index) => {
-            return <CandidateCard data={element} key={index} account={account} contract={contract} />
+            return <CandidateCard
+              data={element}
+              key={index}
+              account={account}
+              contract={contract}
+              disabled={disabled}
+            />
           })
         }
       </div>
-
+      <div className="TimerContainer" >
+        {timer && <div className="Timer" >
+          {timer !== "Campaign Ended" && `Our Campaign will end in ${timer}` || "Campaign Ended"}
+        </div>}
+      </div>
     </div>
   );
 }
