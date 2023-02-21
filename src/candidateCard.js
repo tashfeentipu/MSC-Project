@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { displayError } from "./Errors";
 
-function CandidateCard({ data, contract, account, disabled }) {
+function CandidateCard({ data, contract, account, disabled, winner, setWinner }) {
     const render = data.slice(0, 4) === "0x00";
     const [votes, setVotes] = useState(0)
 
@@ -17,6 +17,9 @@ function CandidateCard({ data, contract, account, disabled }) {
     const getVotes = async () => {
         if (contract && !render) {
             const result = await contract.methods.getCandidatesData(data).call();
+            if (winner.votes < result.votes) {
+                setWinner({ votes: result.votes, address: data })
+            }
             setVotes(result.votes)
         }
     }

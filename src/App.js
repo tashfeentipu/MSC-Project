@@ -16,6 +16,7 @@ function App() {
   const [contract, setContract] = useState(null)
   const [accNumber, setAccNumber] = useState("Connect Wallet")
   const [timer, setTimer] = useState("")
+  const [winner, setWinner] = useState({ votes: 0, address: "0x00" })
   const [disabled, setDisabled] = useState(false)
 
   if (window.ethereum) {
@@ -26,9 +27,8 @@ function App() {
     if (account) {
       setAccNumber(account)
     }
-    timerFunction()
   }
-
+  
   useEffect(() => {
     if (ethereum) {
       loadData()
@@ -44,6 +44,7 @@ function App() {
       setContract(electoralContract)
     }
     setCandidatesList(await electoralContract.methods.getCandidates().call());
+    timerFunction()
   }
 
   const registerVoter = async () => {
@@ -70,7 +71,7 @@ function App() {
 
     interval = 1000; // 1 second
 
-    eventTime = moment(new Date()).add(10, "seconds");
+    eventTime = moment(new Date()).add(10, "minutes");
     currentTime = moment(new Date());
     duration = moment.duration(eventTime.diff(currentTime));
 
@@ -112,13 +113,16 @@ function App() {
               account={account}
               contract={contract}
               disabled={disabled}
+              winner={winner}
+              setWinner={setWinner}
             />
           })
         }
       </div>
       <div className="TimerContainer" >
         {timer && <div className="Timer" >
-          {timer !== "Campaign Ended" && `Our Campaign will end in ${timer}` || "Campaign Ended"}
+          {timer !== "Campaign Ended" && `Our Campaign will end in ${timer}` ||
+            `Campaign Ended , Winner is ${winner.address} with votes: ${winner.votes}`}
         </div>}
       </div>
     </div>
