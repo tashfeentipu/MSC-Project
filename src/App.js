@@ -4,6 +4,7 @@ import ElectoralContract from "./abis/ElectoralContract.json";
 import { useEffect, useState } from "react";
 import './App.css';
 import CandidateCard from "./candidateCard";
+import { displayError } from "./Errors";
 
 function App() {
   let web3;
@@ -11,6 +12,7 @@ function App() {
 
   const { connect, account, ethereum } = useMetaMask();
   const [candidatesList, setCandidatesList] = useState([])
+  const [contract, setContract] = useState(null)
   const [accNumber, setAccNumber] = useState("Connect Wallet")
 
   if (window.ethereum) {
@@ -22,10 +24,12 @@ function App() {
       setAccNumber(account)
     }
   }
-  
+
   useEffect(() => {
-    loadData()
-  }, [])
+    if (ethereum) {
+      loadData()
+    }
+  }, [ethereum])
 
   const loadData = async () => {
     const networkId = await web3.eth.net.getId()
@@ -33,13 +37,14 @@ function App() {
     if (networkData) {
       const address = networkData.address;
       electoralContract = new web3.eth.Contract(ElectoralContract.abi, address)
+      setContract(electoralContract)
     }
     setCandidatesList(await electoralContract.methods.getCandidates().call());
   }
 
   const registerVoter = async () => {
     try {
-      await electoralContract.methods.registerAsVoter().send({ from: account });
+      await contract.methods.registerAsVoter().send({ from: account });
     } catch (error) {
       displayError(error)
     }
@@ -47,24 +52,12 @@ function App() {
 
   const registerCandidate = async () => {
     try {
-      console.log(account);
-      await electoralContract.methods.registerAsCandidate().send({ from: account });
+      await contract.methods.registerAsCandidate().send({ from: account });
+      setCandidatesList(await electoralContract.methods.getCandidates().call());
     } catch (error) {
       displayError(error)
     }
   }
-
-  const displayError = (error) => {
-    var errorMessageInJson = JSON.parse(
-      error.message.slice(58, error.message.length - 2)
-    );
-
-    var errorMessageToShow = errorMessageInJson.data.data[Object.keys(errorMessageInJson.data.data)[0]].reason;
-
-    alert(errorMessageToShow);
-    return; 
-  }
-
 
   return (
     <div className="App">
@@ -84,7 +77,7 @@ function App() {
       <div className="CandidatesListContainer" >
         {
           candidatesList.map((element, index) => {
-            return <CandidateCard data={element} key={index} />
+            return <CandidateCard data={element} key={index} account={account} contract={contract} />
           })
         }
       </div>

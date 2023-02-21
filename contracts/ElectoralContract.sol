@@ -71,7 +71,7 @@ contract ElectoralContract {
         return candidatesAddress;
     }
 
-    function voteCandidate(address candidateAddress) public payable {
+    function voteCandidate(address candidateAddress) public {
         require(
             voters[msg.sender].exists == true &&
                 voters[msg.sender].voted == false,
