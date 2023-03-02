@@ -12,7 +12,7 @@ contract ElectoralContract {
         bool exists;
         bool voted;
     }
-    // implement the results functionality
+
     mapping(address => candidate) candidates;
     mapping(address => voter) voters;
     uint256 public no_of_candidates = 0;

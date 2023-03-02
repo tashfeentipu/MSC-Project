@@ -103,14 +103,14 @@ contract("Electoral Contract", function (accounts) {
     await electoralContract.voteCandidate(candidate[0], { from: voter[2] });
     await electoralContract.voteCandidate(candidate[0], { from: voter[3] });
 
-    const votes = await electoralContract.getCandidatesVotes(candidate[0]);
-    assert.equal(votes, 4);
+    const data = await electoralContract.getCandidatesData(candidate[0]);
+    assert.equal(data.votes, 4);
 
   });
 
-  it("Cannot get Unregistered candidate's votes", async () => {
+  it("Cannot get Unregistered candidate's Data", async () => {
     try {
-      await electoralContract.getCandidatesVotes(candidate[4]);
+      await electoralContract.getCandidatesData(candidate[4]);
       assert.fail("The transaction should have thrown an error");
     } catch (err) {
       assert.include(err.message, "Candidate does not exist");
